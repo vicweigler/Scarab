@@ -15,6 +15,7 @@ const SPIN_STRIP_EXTRA_SYMBOLS = 14;
 const CLEOPATRA_REELS = [1, 2, 3];
 const CLEOPATRA_STACK_CHANCE = 0.16;
 const MAX_FEVER_RETRIGGERS = 99;
+const MAIN_ART_SRC = assetUrl('symbols/Main.png');
 const REEL_SPIN_AUDIO_SRC = assetUrl('audio/sfx/02.mp3');
 const REEL_SPIN_AUDIO_START = 0;
 const REEL_SPIN_AUDIO_END = 2.45;
@@ -28,7 +29,7 @@ const WIN_COUNT_AUDIO_START = 0;
 const SMALL_WIN_MAX_MULTIPLIER = 4;
 const MEDIUM_WIN_MAX_MULTIPLIER = 14;
 const AUTO_SPIN_DELAY = 2000;
-const APP_VERSION = 'v2.4.4';
+const APP_VERSION = 'v2.4.5';
 
 const paylines = [
   { name: 'Top', rows: [0, 0, 0, 0, 0] },
@@ -215,6 +216,7 @@ const state = {
   soundEnabled: true,
   showLinePreview: false,
   gameNumber: 1,
+  completedSpins: 0,
   lockedFrames: createGrid(false),
   feverSpins: 0,
   feverWilds: 0,
@@ -250,7 +252,9 @@ app.innerHTML = `
     </div>
 
     <div class="hero-art" aria-hidden="true">
-      <img src="${assetUrl('symbols/Main.png')}" alt="" />
+      <img class="hero-main" src="${MAIN_ART_SRC}" alt="" />
+      <span class="scarab-wing scarab-wing-left"></span>
+      <span class="scarab-wing scarab-wing-right"></span>
       <span class="cleo-eye-sparkle cleo-eye-sparkle-left"></span>
       <span class="cleo-eye-sparkle cleo-eye-sparkle-right"></span>
     </div>
@@ -515,6 +519,10 @@ function spin() {
     state.totalWon += result.totalWin;
     state.balance += result.totalWin;
     state.spinning = false;
+    state.completedSpins += 1;
+    if (state.completedSpins % 4 === 0) {
+      animateScarabWings();
+    }
     elements.reels.classList.remove('spinning');
     clearVisualReelStopTimers();
     stopReelSpinSound();
@@ -1062,7 +1070,14 @@ function resetWinCelebration() {
   stopWinCountSound();
   elements.winStat.classList.remove('win-celebrating');
   elements.heroArt.classList.remove('eyes-sparkling');
+  elements.heroArt.classList.remove('wings-flapping');
   elements.coinLayer.replaceChildren();
+}
+
+function animateScarabWings() {
+  elements.heroArt.classList.remove('wings-flapping');
+  void elements.heroArt.offsetWidth;
+  elements.heroArt.classList.add('wings-flapping');
 }
 
 function getWinCountDuration(totalWin) {

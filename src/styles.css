@@ -592,6 +592,59 @@ body::before {
   object-position: center center;
 }
 
+.scarab-wing {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(0.6px) drop-shadow(0 0 8px rgba(255, 226, 82, 0.8));
+  mix-blend-mode: screen;
+  z-index: 1;
+  will-change: transform;
+}
+
+.scarab-wing-left {
+  background: radial-gradient(ellipse 15% 32% at 25% 49%, rgba(255, 255, 210, 0.78) 0 18%, rgba(255, 196, 48, 0.42) 42%, transparent 68%);
+  clip-path: polygon(14.5% 23%, 28.5% 22.5%, 26.5% 31%, 26% 40%, 28% 49%, 31% 57%, 34% 64%, 38% 69%, 35% 72%, 29% 68%, 23% 62%, 18% 54%, 15% 45%, 14% 35%);
+  transform-origin: 49% 70%;
+}
+
+.scarab-wing-right {
+  background: radial-gradient(ellipse 15% 32% at 75% 49%, rgba(255, 255, 210, 0.78) 0 18%, rgba(255, 196, 48, 0.42) 42%, transparent 68%);
+  clip-path: polygon(71.5% 22.5%, 85.5% 23%, 86% 35%, 85% 45%, 82% 54%, 77% 62%, 71% 68%, 65% 72%, 62% 69%, 66% 64%, 69% 57%, 72% 49%, 74% 40%, 73.5% 31%);
+  transform-origin: 51% 70%;
+}
+
+.hero-art.wings-flapping .scarab-wing-left {
+  animation: scarab-wing-left 420ms ease-in-out 6 alternate;
+}
+
+.hero-art.wings-flapping .scarab-wing-right {
+  animation: scarab-wing-right 420ms ease-in-out 6 alternate;
+}
+
+@keyframes scarab-wing-left {
+  from {
+    opacity: 0.2;
+    transform: rotate(0deg) scaleY(1);
+  }
+  to {
+    opacity: 0.72;
+    transform: rotate(-1.4deg) scaleY(0.98);
+  }
+}
+
+@keyframes scarab-wing-right {
+  from {
+    opacity: 0.2;
+    transform: rotate(0deg) scaleY(1);
+  }
+  to {
+    opacity: 0.72;
+    transform: rotate(1.4deg) scaleY(0.98);
+  }
+}
+
 .cleo-eye-sparkle {
   position: absolute;
   top: 39.3%;
