@@ -573,6 +573,7 @@ body::before {
 }
 
 .hero-art {
+  position: relative;
   width: min(1240px, calc(100vw - 20px));
   height: clamp(234px, 31.5vh, 357px);
   justify-self: center;
@@ -589,6 +590,53 @@ body::before {
   height: 100%;
   object-fit: fill;
   object-position: center center;
+}
+
+.cleo-eye-sparkle {
+  position: absolute;
+  top: 39.3%;
+  width: clamp(12px, 2.2vw, 28px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.25);
+  background:
+    linear-gradient(90deg, transparent 42%, #ffffff 48% 52%, transparent 58%),
+    linear-gradient(0deg, transparent 42%, #ffffff 48% 52%, transparent 58%),
+    radial-gradient(circle, #ffffff 0 16%, #fff9a8 17% 33%, rgba(80, 255, 185, 0.7) 34% 44%, transparent 62%);
+  filter: drop-shadow(0 0 5px #fff7a0) drop-shadow(0 0 8px #36ff9a);
+  z-index: 2;
+}
+
+.cleo-eye-sparkle-left {
+  left: 46.4%;
+}
+
+.cleo-eye-sparkle-right {
+  left: 53.6%;
+}
+
+.hero-art.eyes-sparkling .cleo-eye-sparkle {
+  animation: cleo-eye-sparkle 480ms ease-out 5;
+}
+
+.hero-art.eyes-sparkling .cleo-eye-sparkle-right {
+  animation-delay: 100ms;
+}
+
+@keyframes cleo-eye-sparkle {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.25) rotate(0deg);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.35) rotate(22deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.45) rotate(90deg);
+  }
 }
 
 .marquee {
@@ -2934,7 +2982,8 @@ body::before {
 /* Final color/centering hardening for Samsung/mobile browsers. */
 body .machine .marquee strong {
   position: absolute !important;
-  left: calc(50% - 8px) !important;
+  grid-column: 1 / -1 !important;
+  left: 50% !important;
   transform: translateX(-50%) !important;
   text-align: center !important;
   color: #ffdf45 !important;

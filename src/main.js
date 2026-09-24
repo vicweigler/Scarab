@@ -251,6 +251,8 @@ app.innerHTML = `
 
     <div class="hero-art" aria-hidden="true">
       <img src="${assetUrl('symbols/Main.png')}" alt="" />
+      <span class="cleo-eye-sparkle cleo-eye-sparkle-left"></span>
+      <span class="cleo-eye-sparkle cleo-eye-sparkle-right"></span>
     </div>
 
     <div class="cabinet">
@@ -325,6 +327,7 @@ const elements = {
   bet: document.querySelector('#bet'),
   lastWin: document.querySelector('#lastWin'),
   winStat: document.querySelector('.win-stat'),
+  heroArt: document.querySelector('.hero-art'),
   freeSpins: document.querySelector('#freeSpins'),
   message: document.querySelector('#message'),
   coinLayer: document.querySelector('#coinLayer'),
@@ -524,9 +527,9 @@ function spin() {
       renderPaylineStrip(result.winningLines.map((line) => line.index));
       render();
       announceResult(result);
+      speakWinAnnouncement(result.totalWin);
       announceSpecialFeatures({ result, newLocks, unlockedFrames, cleopatraWilds, isFeverSpin, wager });
       playWinSound(result.totalWin, wager);
-      speakWinAnnouncement(result.totalWin);
       const winCountDuration = getWinCountDuration(result.totalWin);
       celebrateWin(result.totalWin, winCountDuration);
       animateWinAmount(result.totalWin, winCountDuration);
@@ -946,7 +949,6 @@ function speakBonusAnnouncement() {
     utterance.pitch = 1.12;
     utterance.rate = 0.98;
     utterance.volume = 0.95;
-    window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
   };
 
@@ -962,9 +964,13 @@ function speakBonusAnnouncement() {
 }
 
 function speakWinAnnouncement(totalWin) {
-  if (!state.soundEnabled || !('speechSynthesis' in window) || totalWin <= 1000) return;
+  if (!state.soundEnabled || !('speechSynthesis' in window) || totalWin <= 0) return;
 
-  const phrase = totalWin > 2000 ? 'Fantastic! Great win!' : 'Amazing, good win!';
+  const phrase = totalWin > 2000
+    ? 'WIN! Fantastic! Great win!'
+    : totalWin > 1000
+      ? 'WIN! Amazing, good win!'
+      : 'WIN!';
   const speak = () => {
     const utterance = new SpeechSynthesisUtterance(phrase);
     const voices = window.speechSynthesis.getVoices();
@@ -1055,6 +1061,7 @@ function resetWinCelebration() {
   }
   stopWinCountSound();
   elements.winStat.classList.remove('win-celebrating');
+  elements.heroArt.classList.remove('eyes-sparkling');
   elements.coinLayer.replaceChildren();
 }
 
@@ -1137,8 +1144,10 @@ function celebrateWin(totalWin, countDuration = getWinCountDuration(totalWin)) {
   const coinCount = Math.min(180, Math.max(30, Math.ceil(countDuration / 45)));
 
   elements.winStat.classList.remove('win-celebrating');
+  elements.heroArt.classList.remove('eyes-sparkling');
   void elements.winStat.offsetWidth;
   elements.winStat.classList.add('win-celebrating');
+  elements.heroArt.classList.add('eyes-sparkling');
   elements.coinLayer.replaceChildren();
 
   for (let coinIndex = 0; coinIndex < coinCount; coinIndex += 1) {
