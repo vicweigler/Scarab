@@ -23,6 +23,7 @@ const SMALL_WIN_AUDIO_SRC = assetUrl('audio/sfx/13.mp3');
 const MEDIUM_WIN_AUDIO_SRC = assetUrl('audio/sfx/14.mp3');
 const BIG_WIN_AUDIO_SRC = assetUrl('audio/sfx/18.mp3');
 const WIN_COUNT_AUDIO_SRC = assetUrl('audio/Slotswin.mp3');
+const BACKGROUND_MUSIC_SRC = assetUrl('audio/Egyptian.mp3');
 const WIN_COUNT_AUDIO_START = 0;
 const SMALL_WIN_MAX_MULTIPLIER = 4;
 const MEDIUM_WIN_MAX_MULTIPLIER = 14;
@@ -227,9 +228,7 @@ const sound = {
   context: null,
   masterGain: null,
   backgroundStarted: false,
-  musicGain: null,
-  melodyTimer: null,
-  droneOscillators: [],
+  backgroundAudio: null,
   reelSpinAudio: null,
   reelSpinStopTimer: null,
   reelStopTimers: [],
@@ -578,6 +577,9 @@ function toggleSound() {
   if (!state.soundEnabled) {
     stopReelSpinSound();
     stopWinCountSound();
+    sound.backgroundAudio?.pause();
+  } else if (sound.backgroundStarted) {
+    sound.backgroundAudio?.play().catch(() => {});
   }
 
   if (sound.masterGain && sound.context) {
@@ -679,48 +681,14 @@ function stopReelSpinSound() {
 
 function startBackgroundMusic() {
   if (!state.soundEnabled) return;
-  if (sound.backgroundStarted) return;
+  if (!sound.backgroundAudio) {
+    sound.backgroundAudio = new Audio(BACKGROUND_MUSIC_SRC);
+    sound.backgroundAudio.loop = true;
+    sound.backgroundAudio.volume = 0.18;
+  }
 
-  const context = getAudioContext();
-  const now = context.currentTime;
   sound.backgroundStarted = true;
-  sound.musicGain = context.createGain();
-  sound.musicGain.gain.setValueAtTime(0.0001, now);
-  sound.musicGain.gain.exponentialRampToValueAtTime(0.075, now + 1.2);
-  connectToMaster(sound.musicGain);
-
-  [110, 165].forEach((frequency) => {
-    const drone = context.createOscillator();
-    const droneGain = context.createGain();
-    drone.type = 'sine';
-    drone.frequency.setValueAtTime(frequency, now);
-    droneGain.gain.setValueAtTime(0.22, now);
-    drone.connect(droneGain);
-    droneGain.connect(sound.musicGain);
-    drone.start(now);
-    sound.droneOscillators.push(drone);
-  });
-
-  const melody = [220, 261.63, 293.66, 329.63, 293.66, 261.63, 246.94, 220];
-  let noteIndex = 0;
-  const playNote = () => {
-    const noteNow = context.currentTime;
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    oscillator.type = 'triangle';
-    oscillator.frequency.setValueAtTime(melody[noteIndex % melody.length], noteNow);
-    gain.gain.setValueAtTime(0.0001, noteNow);
-    gain.gain.exponentialRampToValueAtTime(0.18, noteNow + 0.035);
-    gain.gain.exponentialRampToValueAtTime(0.0001, noteNow + 0.52);
-    oscillator.connect(gain);
-    gain.connect(sound.musicGain);
-    oscillator.start(noteNow);
-    oscillator.stop(noteNow + 0.56);
-    noteIndex += 1;
-  };
-
-  playNote();
-  sound.melodyTimer = window.setInterval(playNote, 620);
+  sound.backgroundAudio.play().catch(() => {});
 }
 
 function playWinSound(totalWin, wager) {
