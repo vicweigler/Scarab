@@ -1,5 +1,6 @@
 import './styles.css';
 
+const assetUrl = (path) => `${import.meta.env.BASE_URL}assets/${path}`;
 const ROWS = 4;
 const REELS = 5;
 const BASE_BET = 10;
@@ -14,14 +15,14 @@ const SPIN_STRIP_EXTRA_SYMBOLS = 14;
 const CLEOPATRA_REELS = [1, 2, 3];
 const CLEOPATRA_STACK_CHANCE = 0.16;
 const MAX_FEVER_RETRIGGERS = 99;
-const REEL_SPIN_AUDIO_SRC = '/assets/audio/sfx/02.mp3';
+const REEL_SPIN_AUDIO_SRC = assetUrl('audio/sfx/02.mp3');
 const REEL_SPIN_AUDIO_START = 0;
 const REEL_SPIN_AUDIO_END = 2.45;
-const REEL_STOP_AUDIO_SRC = '/assets/audio/sfx/12.mp3';
-const SMALL_WIN_AUDIO_SRC = '/assets/audio/sfx/13.mp3';
-const MEDIUM_WIN_AUDIO_SRC = '/assets/audio/sfx/14.mp3';
-const BIG_WIN_AUDIO_SRC = '/assets/audio/sfx/18.mp3';
-const WIN_COUNT_AUDIO_SRC = '/assets/audio/Slotswin.mp3';
+const REEL_STOP_AUDIO_SRC = assetUrl('audio/sfx/12.mp3');
+const SMALL_WIN_AUDIO_SRC = assetUrl('audio/sfx/13.mp3');
+const MEDIUM_WIN_AUDIO_SRC = assetUrl('audio/sfx/14.mp3');
+const BIG_WIN_AUDIO_SRC = assetUrl('audio/sfx/18.mp3');
+const WIN_COUNT_AUDIO_SRC = assetUrl('audio/Slotswin.mp3');
 const WIN_COUNT_AUDIO_START = 0;
 const SMALL_WIN_MAX_MULTIPLIER = 4;
 const MEDIUM_WIN_MAX_MULTIPLIER = 14;
@@ -50,7 +51,7 @@ const symbols = {
     weight: 3,
     isWild: true,
     payouts: { 3: 20, 4: 80, 5: 400 },
-    image: '/assets/symbols/scarab.png',
+    image: assetUrl('symbols/scarab.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="scarabGold" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff47a"/><stop offset="0.48" stop-color="#f5b51d"/><stop offset="1" stop-color="#9d4c0b"/></linearGradient><radialGradient id="scarabRuby" cx="42%" cy="35%" r="62%"><stop offset="0" stop-color="#ffb0a0"/><stop offset="0.28" stop-color="#ef342e"/><stop offset="0.72" stop-color="#a90f18"/><stop offset="1" stop-color="#5d0711"/></radialGradient><radialGradient id="scarabBlue" cx="58%" cy="34%" r="64%"><stop offset="0" stop-color="#bfe8ff"/><stop offset="0.35" stop-color="#317dff"/><stop offset="1" stop-color="#07348e"/></radialGradient></defs><g transform="rotate(-5 60 60)"><path d="M61 12c24 0 43 20 43 46s-19 50-43 50-43-24-43-50 19-46 43-46Z" fill="url(#scarabGold)" stroke="#6d2608" stroke-width="7"/><path d="M31 23c-15 7-24 21-24 38 0 16 8 30 22 38" fill="none" stroke="url(#scarabGold)" stroke-width="8" stroke-linecap="round"/><path d="M88 19c16 7 26 22 26 40 0 17-9 33-25 41" fill="none" stroke="url(#scarabGold)" stroke-width="8" stroke-linecap="round"/><path d="M30 31h53c8 7 13 17 13 29 0 13-5 24-14 32H30c-7-9-11-20-11-33 0-11 4-21 11-28Z" fill="url(#scarabRuby)" stroke="#ffd45c" stroke-width="5"/><path d="M83 28c11 3 19 15 19 31 0 18-8 31-20 34-5-11-7-22-7-34 0-11 3-22 8-31Z" fill="url(#scarabBlue)" stroke="#ffd45c" stroke-width="5"/><path d="M22 58h58" stroke="#ffd85a" stroke-width="9" stroke-linecap="round"/><path d="M33 38c10-7 23-9 38-6M35 83c11 7 24 9 39 5" fill="none" stroke="#ffcec2" stroke-width="4" opacity="0.72"/><path d="M87 38c6 6 8 15 8 24" fill="none" stroke="#cde9ff" stroke-width="4" opacity="0.82"/><circle cx="61" cy="58" r="8" fill="#ffef8b" stroke="#8d3408" stroke-width="4"/></g></svg>`
   },
   lockedWild: {
@@ -59,7 +60,7 @@ const symbols = {
     weight: 0,
     isWild: true,
     payouts: {},
-    image: '/assets/symbols/wild.png',
+    image: assetUrl('symbols/wild.png'),
     art: ''
   },
   sun: {
@@ -68,7 +69,7 @@ const symbols = {
     weight: 5,
     isScatter: true,
     payouts: { 3: 12, 4: 60, 5: 220 },
-    image: '/assets/symbols/Bonus.png',
+    image: assetUrl('symbols/Bonus.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="46" r="18"/><path d="M42 48C24 39 15 28 9 15c19 4 34 12 45 25M78 48c18-9 27-20 33-33-19 4-34 12-45 25"/><path d="M60 14v15M60 63v18M29 47H12m96 0H91M35 24l12 12m26 27 12 12m0-51L73 36M47 63 35 75"/><path d="M44 84h32l10 20H34l10-20Z"/></svg>`
   },
   queen: {
@@ -76,7 +77,7 @@ const symbols = {
     short: 'QUEEN',
     weight: 4,
     payouts: { 3: 15, 4: 55, 5: 240 },
-    image: '/assets/symbols/queen.png',
+    image: assetUrl('symbols/queen.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M28 33h64v23c0 29-14 50-32 50S28 85 28 56V33Z"/><path d="M26 34 60 8l34 26M38 29l5-17m17 14V8m17 21 5-17"/><path d="M43 60h8m18 0h8M49 80c7 6 15 6 22 0"/><path d="M36 39h48M40 101c-12-12-19-27-17-46m57 46c12-12 19-27 17-46"/></svg>`
   },
   cleopatraTop: {
@@ -85,7 +86,7 @@ const symbols = {
     weight: 0,
     isWild: true,
     payouts: {},
-    image: '/assets/symbols/Cleo1.png',
+    image: assetUrl('symbols/Cleo1.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M17 94c5-43 20-69 43-78 23 9 38 35 43 78H17Z" fill="#f4bb24" stroke="#7a210d" stroke-width="6"/><path d="M27 66c5-24 16-40 33-48 17 8 28 24 33 48" fill="#fff06a" stroke="#c14a13" stroke-width="4"/><path d="M24 94c6-20 18-30 36-30s30 10 36 30" fill="#132a78" stroke="#ffd45c" stroke-width="5"/><path d="M36 73h48M40 57l5-24m15 20V25m15 32 5-24" stroke="#d9262a" stroke-width="5"/><circle cx="60" cy="50" r="9" fill="#45b8ff" stroke="#fff7b4" stroke-width="4"/></svg>`
   },
   cleopatraMiddle: {
@@ -94,7 +95,7 @@ const symbols = {
     weight: 0,
     isWild: true,
     payouts: {},
-    image: '/assets/symbols/Cleo2.png',
+    image: assetUrl('symbols/Cleo2.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M28 8c-10 26-8 76 32 102C100 84 102 34 92 8H28Z" fill="#1b1e7a" stroke="#ffd45c" stroke-width="6"/><path d="M31 20c4 51 14 82 29 88 15-6 25-37 29-88-19 11-39 11-58 0Z" fill="#f4b081" stroke="#7a210d" stroke-width="4"/><path d="M36 56c9-5 17-5 24 0M60 56c7-5 15-5 24 0" stroke="#163f24" stroke-width="5"/><circle cx="49" cy="60" r="5" fill="#55e07b"/><circle cx="71" cy="60" r="5" fill="#55e07b"/><path d="M58 67c-3 11-2 15 5 13M46 91c9 7 19 7 28 0" fill="none" stroke="#8d1f13" stroke-width="5"/><path d="M26 31c21 10 47 10 68 0" stroke="#ffd45c" stroke-width="8"/></svg>`
   },
   cleopatraThird: {
@@ -103,7 +104,7 @@ const symbols = {
     weight: 0,
     isWild: true,
     payouts: {},
-    image: '/assets/symbols/Cleo3.png',
+    image: assetUrl('symbols/Cleo3.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M25 0c5 28 17 48 35 59C78 48 90 28 95 0" fill="#f4b081" stroke="#7a210d" stroke-width="4"/><path d="M16 118c8-39 23-58 44-58s36 19 44 58H16Z" fill="#132a78" stroke="#ffd45c" stroke-width="6"/><path d="M40 66h40l14 20-34 28-34-28 14-20Z" fill="#ffd33c" stroke="#7a210d" stroke-width="5"/><path d="M48 71h24l7 11-19 20-19-20 7-11Z" fill="#3d91ff" stroke="#fff7b4" stroke-width="4"/><path d="M23 22c17 16 57 16 74 0M34 42c14 12 38 12 52 0" fill="none" stroke="#ffd45c" stroke-width="5"/></svg>`
   },
   cleopatraBottom: {
@@ -112,7 +113,7 @@ const symbols = {
     weight: 0,
     isWild: true,
     payouts: {},
-    image: '/assets/symbols/Cleo4.png',
+    image: assetUrl('symbols/Cleo4.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M25 0c5 28 17 48 35 59C78 48 90 28 95 0" fill="#f4b081" stroke="#7a210d" stroke-width="4"/><path d="M16 118c8-39 23-58 44-58s36 19 44 58H16Z" fill="#132a78" stroke="#ffd45c" stroke-width="6"/><path d="M40 66h40l14 20-34 28-34-28 14-20Z" fill="#ffd33c" stroke="#7a210d" stroke-width="5"/><path d="M48 71h24l7 11-19 20-19-20 7-11Z" fill="#3d91ff" stroke="#fff7b4" stroke-width="4"/><path d="M23 22c17 16 57 16 74 0M34 42c14 12 38 12 52 0" fill="none" stroke="#ffd45c" stroke-width="5"/></svg>`
   },
   falcon: {
@@ -120,7 +121,7 @@ const symbols = {
     short: 'FALCON',
     weight: 8,
     payouts: { 3: 10, 4: 36, 5: 150 },
-    image: '/assets/symbols/falcon.png',
+    image: assetUrl('symbols/falcon.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M25 70c21-34 44-44 70-31-6 22-22 35-48 38l-15 18"/><path d="M38 59c22 2 39-3 52-17M65 38l16-19 12 18M78 55h18M30 80h54"/><path d="M38 93h34l14 14H25l13-14Z"/></svg>`
   },
   ankh: {
@@ -128,7 +129,7 @@ const symbols = {
     short: 'ANKH',
     weight: 10,
     payouts: { 3: 7, 4: 28, 5: 100 },
-    image: '/assets/symbols/ankh.png',
+    image: assetUrl('symbols/ankh.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><g transform="rotate(-16 60 60)"><path d="M60 10c17 0 29 12 29 28 0 13-7 23-17 29l26 24-14 16-24-25-24 25-14-16 26-24C38 61 31 51 31 38c0-16 12-28 29-28Z" fill="#ffc52e" stroke="#7a210d" stroke-width="8"/><path d="M60 21c10 0 17 7 17 17 0 12-8 20-17 25-9-5-17-13-17-25 0-10 7-17 17-17Z" fill="#fff07d" stroke="#b94a12" stroke-width="5"/><path d="M34 88 54 68l-10-8-27 24 13 16Z" fill="#d4232a" stroke="#ffd568" stroke-width="4"/><path d="M86 88 66 68l10-8 27 24-13 16Z" fill="#d4232a" stroke="#ffd568" stroke-width="4"/><path d="M46 99h28l8 12H38l8-12Z" fill="#ffd34f" stroke="#7a210d" stroke-width="6"/><circle cx="60" cy="42" r="8" fill="#46b7ff" stroke="#ffffff" stroke-width="3"/><path d="M39 75c14 8 28 8 42 0" fill="none" stroke="#fff39c" stroke-width="5"/><path d="M52 19c-9 6-13 14-11 24M73 22c6 5 9 12 8 20" fill="none" stroke="#fff39c" stroke-width="4" opacity="0.9"/></g></svg>`
   },
   eye: {
@@ -136,7 +137,7 @@ const symbols = {
     short: 'EYE',
     weight: 8,
     payouts: { 3: 8, 4: 30, 5: 120 },
-    image: '/assets/symbols/eye.png',
+    image: assetUrl('symbols/eye.png'),
     art: ''
   },
   osiris: {
@@ -144,7 +145,7 @@ const symbols = {
     short: 'OSIRIS',
     weight: 7,
     payouts: { 3: 9, 4: 34, 5: 135 },
-    image: '/assets/symbols/osiris.png',
+    image: assetUrl('symbols/osiris.png'),
     art: ''
   },
   sphynx: {
@@ -152,7 +153,7 @@ const symbols = {
     short: 'SPHYNX',
     weight: 9,
     payouts: { 3: 6, 4: 24, 5: 90 },
-    image: '/assets/symbols/Sphynx.png',
+    image: assetUrl('symbols/Sphynx.png'),
     art: ''
   },
   a: {
@@ -160,7 +161,7 @@ const symbols = {
     short: 'A',
     weight: 0,
     payouts: { 3: 5, 4: 18, 5: 70 },
-    image: '/assets/symbols/10.png',
+    image: assetUrl('symbols/10.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><text x="60" y="82" text-anchor="middle" font-size="78" font-family="Georgia, serif" font-weight="900" fill="currentColor" stroke="#ffd76a" stroke-width="3">A</text><path d="M25 88c25-13 45-13 70 0"/></svg>`
   },
   k: {
@@ -168,7 +169,7 @@ const symbols = {
     short: 'K',
     weight: 13,
     payouts: { 3: 4, 4: 16, 5: 60 },
-    image: '/assets/symbols/K.png',
+    image: assetUrl('symbols/K.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><text x="60" y="82" text-anchor="middle" font-size="78" font-family="Georgia, serif" font-weight="900" fill="currentColor" stroke="#ffd76a" stroke-width="3">K</text><path d="M25 88c25-13 45-13 70 0"/></svg>`
   },
   q: {
@@ -176,7 +177,7 @@ const symbols = {
     short: 'Q',
     weight: 14,
     payouts: { 3: 4, 4: 14, 5: 52 },
-    image: '/assets/symbols/Q.png',
+    image: assetUrl('symbols/Q.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><text x="60" y="82" text-anchor="middle" font-size="78" font-family="Georgia, serif" font-weight="900" fill="currentColor" stroke="#ffd76a" stroke-width="3">Q</text><path d="M25 88c25-13 45-13 70 0"/></svg>`
   },
   j: {
@@ -184,7 +185,7 @@ const symbols = {
     short: 'J',
     weight: 15,
     payouts: { 3: 3, 4: 12, 5: 44 },
-    image: '/assets/symbols/J.png',
+    image: assetUrl('symbols/J.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><text x="60" y="82" text-anchor="middle" font-size="78" font-family="Georgia, serif" font-weight="900" fill="currentColor" stroke="#ffd76a" stroke-width="3">J</text><path d="M25 88c25-13 45-13 70 0"/></svg>`
   },
   ten: {
@@ -192,7 +193,7 @@ const symbols = {
     short: '10',
     weight: 16,
     payouts: { 3: 3, 4: 10, 5: 36 },
-    image: '/assets/symbols/10.png',
+    image: assetUrl('symbols/10.png'),
     art: `<svg viewBox="0 0 120 120" aria-hidden="true"><text x="60" y="82" text-anchor="middle" font-size="66" font-family="Georgia, serif" font-weight="900" fill="currentColor" stroke="#ffd76a" stroke-width="3">10</text><path d="M25 88c25-13 45-13 70 0"/></svg>`
   }
 };
@@ -250,7 +251,7 @@ app.innerHTML = `
     </div>
 
     <div class="hero-art" aria-hidden="true">
-      <img src="/assets/symbols/Main.png" alt="" />
+      <img src="${assetUrl('symbols/Main.png')}" alt="" />
     </div>
 
     <div class="cabinet">
